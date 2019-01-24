@@ -1,0 +1,12 @@
+name: BasicSpawnProtection
+main: pmmp\BasicSpawnProtection\Main
+version: 0.0.1
+api: 4.0.0
+load: POSTWORLD
+author: pmmp
+description: Protect a radius around your worlds' spawn from modification
+website: https://github.com/pmmp/BasicSpawnProtection
+permissions:
+  basicspawnprotect.bypass:
+    description: Allows the user to bypass the spawn protection zone
+    default: op
