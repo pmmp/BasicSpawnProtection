@@ -30,7 +30,7 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector2;
 use pocketmine\math\Vector3;
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\world\World;
 
 class SpawnProtectionListener implements Listener{
@@ -62,9 +62,9 @@ class SpawnProtectionListener implements Listener{
 	 * @param PlayerInteractEvent $event
 	 */
 	public function onInteract(PlayerInteractEvent $event) : void{
-		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlock())){
+		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlock()->getPosition())){
 			//This prevents opening doors. Perhaps not desired...
-			$event->setCancelled();
+			$event->cancel();
 		}
 	}
 
@@ -74,8 +74,8 @@ class SpawnProtectionListener implements Listener{
 	 * @param BlockPlaceEvent $event
 	 */
 	public function onBlockPlace(BlockPlaceEvent $event) : void{
-		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlockReplaced())){
-			$event->setCancelled();
+		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlockReplaced()->getPosition())){
+			$event->cancel();
 		}
 	}
 
@@ -85,8 +85,8 @@ class SpawnProtectionListener implements Listener{
 	 * @param BlockBreakEvent $event
 	 */
 	public function onBlockBreak(BlockBreakEvent $event) : void{
-		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlock())){
-			$event->setCancelled();
+		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlock()->getPosition())){
+			$event->cancel();
 		}
 	}
 
@@ -96,8 +96,8 @@ class SpawnProtectionListener implements Listener{
 	 * @param SignChangeEvent $event
 	 */
 	public function onSignChange(SignChangeEvent $event) : void{
-		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlock())){
-			$event->setCancelled();
+		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlock()->getPosition())){
+			$event->cancel();
 		}
 	}
 }

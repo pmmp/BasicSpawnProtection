@@ -4,30 +4,24 @@ declare(strict_types=1);
 
 namespace pmmp\BasicSpawnProtection;
 
-use Particle\Validator\Validator;
 use pocketmine\plugin\PluginBase;
-use function implode;
-use const PHP_INT_MAX;
+use pocketmine\plugin\PluginException;
+use function count;
+use function is_int;
 
 class Main extends PluginBase{
 
 	public function onEnable() : void{
-		$v = new Validator();
-		$v->required('radius')->integer()->between(0, PHP_INT_MAX);
-
-		$result = $v->validate($this->getConfig()->getAll());
-		if($result->isNotValid()){
-			$messages = [];
-			foreach($result->getFailures() as $f){
-				$messages[] = $f->format();
-			}
-			$this->getLogger()->alert('Invalid config file: ' . implode(' | ', $messages));
-			$this->getServer()->getPluginManager()->disablePlugin($this);
-			return;
+		$config = $this->getConfig()->getAll();
+		if(count($config) !== 1 || !isset($config['radius'])){
+			throw new PluginException("Invalid configuration file: Must only contain 'radius'");
+		}
+		if(!is_int($config['radius']) || $config['radius'] <= 0){
+			throw new PluginException("Invalid configuration file: Radius must be a number bigger than 0");
 		}
 
 		$this->getServer()->getPluginManager()->registerEvents(
-			new SpawnProtectionListener((int) $this->getConfig()->get('radius')),
+			new SpawnProtectionListener($config['radius']),
 			$this
 		);
 	}
