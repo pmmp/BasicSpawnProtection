@@ -1,5 +1,6 @@
 name: BasicSpawnProtection
 main: pmmp\BasicSpawnProtection\Main
+src-namespace-prefix: pmmp\BasicSpawnProtection
 version: 0.0.1
 api: 4.0.0
 load: POSTWORLD
