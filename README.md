@@ -1,5 +1,5 @@
 # BasicSpawnProtection
-Basic vanilla-like spawn protection for PocketMine-MP
+Basic vanilla-like spawn protection for PocketMine-MP. This plugin provides similar functionality to PM3's built-in spawn protection for PM4.
 
 ## Configuration
 After you first start the server with the plugin loaded, a default `config.yml` will be generated. You can then tweak the `radius` field to control how big the spawn protection zone will be.
