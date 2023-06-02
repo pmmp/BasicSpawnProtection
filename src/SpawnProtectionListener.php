@@ -74,8 +74,13 @@ class SpawnProtectionListener implements Listener{
 	 * @param BlockPlaceEvent $event
 	 */
 	public function onBlockPlace(BlockPlaceEvent $event) : void{
-		if($this->checkSpawnProtection($event->getPlayer()->getWorld(), $event->getPlayer(), $event->getBlockReplaced()->getPosition())){
-			$event->cancel();
+		$player = $event->getPlayer();
+		$world = $player->getWorld();
+		foreach($event->getTransaction()->getBlocks() as [$x, $y, $z, $block]){
+			if($this->checkSpawnProtection($world, $player, new Vector3($x, $y, $z))){
+				$event->cancel();
+				return;
+			}
 		}
 	}
 
